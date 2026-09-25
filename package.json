@@ -1,0 +1,72 @@
+{
+  "name": "dsh-plugin-blender",
+  "version": "0.1.0",
+  "description": "Blender for DeepSeek Harness: headless render/convert tools for 3D models plus a three.js viewer panel in the workbench sidebar",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "screenshots.json",
+    "assets"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-sidebar-right"
+      ]
+    }
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "cordis",
+    "blender",
+    "3d",
+    "gltf",
+    "threejs"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": ">=0.0.1-rc.1 <0.1.0 || >=0.1.0-rc.1 <0.2.0-0"
+  },
+  "scripts": {
+    "build": "node scripts/build-client.mjs",
+    "verify": "node scripts/verify.mjs",
+    "client": "node test/client.mjs",
+    "smoke": "node test/smoke.mjs",
+    "viewer": "node test/viewer-shot.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "publish:github": "node scripts/publish-github.mjs",
+    "publish:market": "node scripts/open-market-pr.mjs",
+    "test": "npm run build && npm run verify && npm run client && npm run smoke && npm run viewer"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "three": "^0.170.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s1lverex/dsh-plugin-blender.git"
+  },
+  "homepage": "https://github.com/s1lverex/dsh-plugin-blender#readme",
+  "bugs": {
+    "url": "https://github.com/s1lverex/dsh-plugin-blender/issues"
+  }
+}

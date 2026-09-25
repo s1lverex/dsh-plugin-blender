@@ -1,0 +1,8 @@
+# Bundle patch for dsh-plugin-blender.
+#
+# Applied when this package is installed as a profile bundle
+# (`dsh plugin --profile web add github:<owner>/dsh-plugin-blender`),
+# so the plugin row appears without a hand-written profile patch.
+- insert:
+    - id: blender
+      name: 'dsh-plugin-blender'
