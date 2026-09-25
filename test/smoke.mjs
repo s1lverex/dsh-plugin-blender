@@ -62,10 +62,12 @@ const routes = []
 const disposers = []
 
 const attachments = {
-  async saveImage({ data, mediaType }) {
+  async saveImage({ data }) {
     const width = data.readUInt32BE(16)
     const height = data.readUInt32BE(20)
-    return { attachmentId: `stub-${data.length}`, mediaType, bytes: data.length, width, height }
+    // Mirrors the real store, which re-encodes an opaque PNG as JPEG: the tool's
+    // canonical value must declare that media type or output validation rejects it.
+    return { attachmentId: `stub-${data.length}`, mediaType: 'image/jpeg', bytes: data.length, width, height }
   }
 }
 
@@ -148,7 +150,7 @@ assert.equal(png.subarray(1, 4).toString('ascii'), 'PNG', 'the render must be a 
 assert.equal(rendered.width, 160)
 assert.equal(rendered.height, 120)
 assert.ok(rendered.triangles >= 12, 'the render must report its geometry')
-assert.equal(rendered.mediaType, 'image/png')
+assert.equal(rendered.mediaType, 'image/jpeg', 'the canonical value must carry the media type the store returned')
 console.log(`smoke: rendered ${path.basename(rendered.output)} in ${rendered.seconds}s`)
 
 // ------------------------------------------------------- render an existing .blend
